@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wireframes – Europacamp Attersee</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Architects+Daughter&family=Gaegu:wght@400;700&family=Space+Mono&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f6f4ee;
+    --card:#fffdf7;
+    --ink:#33312c;
+    --pencil:#b9b5aa;
+    --pencil-2:#d8d4c8;
+    --line:#c7c2b4;
+    --accent:#2f6f8f;      /* Attersee lake blue */
+    --accent-soft:#dce9ef;
+    --note:#d2693f;        /* annotation coral */
+    --hand:'Patrick Hand', cursive;
+    --hand2:'Architects Daughter', cursive;
+    --mono:'Space Mono', monospace;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--hand);
+    font-size:18px;
+    line-height:1.45;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ---------- Toolbar ---------- */
+  .toolbar{
+    position:sticky; top:0; z-index:50;
+    display:flex; align-items:center; gap:18px; flex-wrap:wrap;
+    padding:12px 22px;
+    background:rgba(246,244,238,.92);
+    backdrop-filter:blur(6px);
+    border-bottom:2px dashed var(--line);
+  }
+  .tb-title{
+    font-family:var(--hand2); font-weight:700;
+    font-size:19px; letter-spacing:.3px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .tb-title .dot{width:13px;height:13px;border-radius:50%;background:var(--accent);display:inline-block;}
+  .tabs{display:flex; gap:8px; margin-left:6px;}
+  .tab{
+    font-family:var(--hand); font-size:17px;
+    padding:6px 16px; border:2px solid var(--ink);
+    border-radius:14px 12px 14px 12px/12px 14px 12px 14px;
+    background:var(--card); color:var(--ink);
+    cursor:pointer; transition:.15s; position:relative;
+    box-shadow:2px 2px 0 var(--pencil-2);
+  }
+  .tab:hover{transform:translateY(-1px);}
+  .tab.active{background:var(--ink); color:var(--paper); box-shadow:2px 2px 0 var(--accent);}
+  .tab small{display:block; font-family:var(--mono); font-size:9.5px; letter-spacing:0; opacity:.7;}
+  .spacer{flex:1;}
+  .toggle{
+    display:flex; gap:6px; align-items:center;
+    font-family:var(--mono); font-size:11px; color:var(--ink);
+  }
+  .seg{display:flex; border:2px solid var(--ink); border-radius:10px; overflow:hidden;}
+  .seg button{
+    font-family:var(--mono); font-size:11px; border:none; background:var(--card);
+    padding:6px 12px; cursor:pointer; color:var(--ink);
+  }
+  .seg button.on{background:var(--ink); color:var(--paper);}
+  .ann-toggle{cursor:pointer; user-select:none;}
+
+  /* ---------- Stage ---------- */
+  .stage{padding:30px 20px 80px; display:flex; justify-content:center;}
+  .frame-wrap{width:100%; max-width:1080px;}
+  .approach-note{
+    font-family:var(--hand2); color:var(--note); font-size:16px;
+    margin:0 6px 14px; display:flex; gap:10px; align-items:flex-start;
+  }
+  .approach-note b{font-family:var(--hand); color:var(--ink);}
+
+  /* Browser chrome around each wireframe */
+  .browser{
+    border:2.5px solid var(--ink); border-radius:16px; overflow:hidden;
+    background:var(--card); box-shadow:6px 8px 0 var(--pencil-2);
+    transition:max-width .25s ease;
+    margin:0 auto;
+  }
+  .browser.mobile{max-width:392px;}
+  .browser-bar{
+    display:flex; align-items:center; gap:7px;
+    padding:9px 14px; border-bottom:2px solid var(--line); background:#efece4;
+  }
+  .browser-bar .b{width:11px;height:11px;border-radius:50%;border:1.6px solid var(--ink);}
+  .url{
+    flex:1; margin-left:8px; font-family:var(--mono); font-size:11px;
+    background:var(--card); border:1.6px solid var(--line); border-radius:8px;
+    padding:4px 12px; color:#7c7869;
+  }
+  .canvas{padding:0;}
+
+  /* ---------- Generic wireframe primitives ---------- */
+  .wf{display:none;}
+  .wf.active{display:block;}
+
+  .ph{ /* image placeholder */
+    background-color:#eceadf;
+    background-image:repeating-linear-gradient(45deg, transparent, transparent 9px, #e0ddd0 9px, #e0ddd0 11px);
+    border:2px dashed var(--pencil); border-radius:10px;
+    display:flex; align-items:center; justify-content:center; text-align:center;
+    color:#8c8779; font-family:var(--mono); font-size:11px; letter-spacing:.4px;
+    padding:14px; min-height:90px;
+  }
+  .line{height:11px;border-radius:6px;background:var(--pencil-2);margin:7px 0;}
+  .line.s{width:55%;} .line.m{width:78%;} .line.l{width:96%;}
+  .line.dark{background:var(--pencil);}
+  .lines{margin:10px 0;}
+  .chip{
+    display:inline-flex; align-items:center; gap:6px;
+    border:2px solid var(--ink); border-radius:20px; padding:4px 13px;
+    font-size:14px; background:var(--card); box-shadow:1.5px 1.5px 0 var(--pencil-2);
+  }
+  .pill{border:2px solid var(--line); border-radius:20px; padding:3px 12px; font-family:var(--mono); font-size:10.5px; color:#7c7869;}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    border:2px solid var(--ink); border-radius:13px; padding:9px 20px;
+    font-family:var(--hand); font-size:17px; background:var(--card);
+    box-shadow:2.5px 2.5px 0 var(--pencil-2);
+  }
+  .btn.solid{background:var(--accent); color:#fff; border-color:var(--accent); box-shadow:2.5px 2.5px 0 #1f5168;}
+  .hpill{font-family:var(--hand2); color:var(--note); font-size:13px;}
+  .sectlabel{font-family:var(--mono); font-size:11px; color:var(--accent); letter-spacing:1.5px; text-transform:uppercase;}
+  h2.wfh{font-family:var(--hand); font-size:30px; margin:4px 0 6px; font-weight:400;}
+  .box{border:2px solid var(--line); border-radius:13px; padding:18px;}
+  .box.fill{background:var(--accent-soft); border-color:var(--accent);}
+  .grid{display:grid; gap:16px;}
+
+  /* annotation flags */
+  .ann{
+    position:relative;
+    font-family:var(--hand2); color:var(--note); font-size:13px;
+    border-left:2px dashed var(--note); padding-left:9px; margin:4px 0;
+  }
+  body.no-ann .ann{display:none;}
+  body.no-ann .approach-note{display:none;}
+  .tag{font-family:var(--mono); font-size:9.5px; background:var(--note); color:#fff; padding:1px 7px; border-radius:6px; letter-spacing:.5px;}
+
+  /* hero shared */
+  .wf-hero{padding:30px 34px;}
+  .wf-section{padding:26px 34px; border-top:2px dashed var(--pencil-2);}
+  .browser.mobile .wf-hero,
+  .browser.mobile .wf-section{padding:20px 18px;}
+
+  /* nav inside mock */
+  .mocknav{display:flex; align-items:center; gap:18px; padding:14px 34px; border-bottom:2px solid var(--line);}
+  .browser.mobile .mocknav{padding:12px 18px; gap:12px;}
+  .logo{width:42px;height:42px;border:2px solid var(--ink);border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10px;color:#8c8779;}
+  .navlinks{display:flex; gap:16px; font-size:15px; color:#6f6b5e;}
+  .browser.mobile .navlinks{display:none;}
+  .burger{display:none;}
+  .browser.mobile .burger{display:flex; flex-direction:column; gap:3px;}
+  .burger span{width:21px;height:2.5px;background:var(--ink);border-radius:2px;}
+
+  /* cost number */
+  .bignum{font-family:var(--gaegu,'Gaegu'),var(--hand); font-size:46px; font-weight:700; color:var(--accent); line-height:1;}
+
+  /* form */
+  .field{margin:10px 0;}
+  .field label{font-size:14px; color:#6f6b5e; font-family:var(--mono); font-size:11px; letter-spacing:.4px; display:block; margin-bottom:4px;}
+  .input{border:2px solid var(--line); border-radius:9px; height:34px; background:var(--card);}
+  .check{display:flex; gap:10px; align-items:flex-start; margin:9px 0;}
+  .check .bx{width:20px;height:20px;border:2px solid var(--ink);border-radius:5px;flex:none;margin-top:2px;}
+
+  /* timeline */
+  .tl{position:relative; padding-left:30px;}
+  .tl::before{content:"";position:absolute;left:9px;top:6px;bottom:6px;width:2.5px;background:var(--pencil);border-radius:2px;}
+  .tl-item{position:relative; margin-bottom:18px;}
+  .tl-item::before{content:"";position:absolute;left:-26px;top:4px;width:14px;height:14px;border-radius:50%;background:var(--card);border:2.5px solid var(--accent);}
+  .tl-time{font-family:var(--mono); font-size:12px; color:var(--accent);}
+
+  .twocol{display:grid; grid-template-columns:1fr 1fr; gap:18px;}
+  .browser.mobile .twocol{grid-template-columns:1fr;}
+  .sidebar-layout{display:grid; grid-template-columns:1fr 300px; gap:24px;}
+  .browser.mobile .sidebar-layout{grid-template-columns:1fr;}
+
+  .footer-mock{padding:22px 34px; background:#efece4; border-top:2px solid var(--line); font-size:14px; color:#7c7869; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;}
+  .browser.mobile .footer-mock{padding:18px;}
+
+  .legend{
+    max-width:1080px;margin:26px auto 0;padding:14px 18px;
+    border:2px dashed var(--line);border-radius:12px;
+    font-family:var(--mono);font-size:11px;color:#7c7869;
+    display:flex;gap:22px;flex-wrap:wrap;align-items:center;
+  }
+  .legend b{font-family:var(--hand);font-size:15px;color:var(--ink);}
+  .legend .sw{display:inline-flex;align-items:center;gap:7px;}
+  .legend .swbox{width:22px;height:13px;border-radius:4px;display:inline-block;border:1.6px solid var(--line);}
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="tb-title"><span class="dot"></span> Wireframes · Europacamp Attersee</div>
+  <div class="tabs" id="tabs">
+    <button class="tab active" data-wf="A">A <small>INFOBLATT</small></button>
+    <button class="tab" data-wf="B">B <small>KARTEN</small></button>
+    <button class="tab" data-wf="C">C <small>REISEPLAN</small></button>
+  </div>
+  <div class="spacer"></div>
+  <div class="toggle">
+    <div class="seg" id="device">
+      <button class="on" data-dev="desktop">DESKTOP</button>
+      <button data-dev="mobile">MOBIL</button>
+    </div>
+  </div>
+  <label class="toggle ann-toggle"><input type="checkbox" id="annChk" checked> <span>Notizen</span></label>
+</div>
+
+<div class="stage">
+  <div class="frame-wrap">
+
+    <!-- approach descriptions -->
+    <div class="approach-note" data-for="A">✎ <div><b>Richtung A — „Infoblatt“:</b> Das klassische Merkblatt als eine lange Seite. Alles untereinander, mit Sprungnavigation oben. Vertraut, drucknah, schnell erfassbar.</div></div>
+    <div class="approach-note" data-for="B" style="display:none">✎ <div><b>Richtung B — „Karten“:</b> Kompakter Hero mit Eckdaten-Leiste, danach ein Raster aus Info-Kacheln. Modular, gut scanbar, leicht erweiterbar.</div></div>
+    <div class="approach-note" data-for="C" style="display:none">✎ <div><b>Richtung C — „Reiseplan“:</b> Ablauf als Zeitstrahl Tag 1 / Tag 2, mit Seitenleiste für Kosten, Packliste &amp; Kontakt. Erzählt die Reise chronologisch.</div></div>
+
+    <!-- ============ DIRECTION A : INFOBLATT ============ -->
+    <div class="browser" id="browser">
+      <div class="browser-bar">
+        <span class="b"></span><span class="b"></span><span class="b"></span>
+        <span class="url">https://exkursion.htl1.at/attersee</span>
+      </div>
+      <div class="canvas">
+
+        <!-- WF A -->
+        <div class="wf active" data-wf="A">
+          <div class="mocknav">
+            <div class="logo">LOGO</div>
+            <div class="navlinks"><span>Anreise</span><span>Unterkunft</span><span>Programm</span><span>Kosten</span><span>Anmeldung</span></div>
+            <div class="spacer"></div>
+            <div class="burger"><span></span><span></span><span></span></div>
+          </div>
+
+          <div class="wf-hero">
+            <div class="ann"><span class="tag">PLATZHALTER</span> Titel, Klasse &amp; Datum werden später ersetzt</div>
+            <span class="pill">2-TAGES-EXKURSION</span>
+            <h2 class="wfh" style="font-size:40px; margin-top:8px;">Europacamp Attersee</h2>
+            <div class="line m dark"></div>
+            <div style="display:flex; gap:10px; flex-wrap:wrap; margin:12px 0;">
+              <span class="chip">📅 [Datum]</span><span class="chip">🎒 Klasse [XY]</span><span class="chip">📍 Attersee</span>
+            </div>
+            <div class="lines"><div class="line l"></div><div class="line l"></div><div class="line m"></div></div>
+            <div class="ph" style="height:200px; margin-top:14px;">[ FOTO: Attersee / Europacamp – Querformat ]</div>
+          </div>
+
+          <div class="wf-section">
+            <div class="sectlabel">01 — Anreise &amp; Abreise</div>
+            <h2 class="wfh">Hin &amp; zurück</h2>
+            <div class="twocol">
+              <div class="box"><b>Anreise</b><div class="lines"><div class="line l"></div><div class="line m"></div><div class="line s"></div></div><div class="ann">Treffpunkt, Uhrzeit, Verkehrsmittel</div></div>
+              <div class="box"><b>Abreise</b><div class="lines"><div class="line l"></div><div class="line m"></div><div class="line s"></div></div></div>
+            </div>
+          </div>
+
+          <div class="wf-section">
+            <div class="sectlabel">02 — Unterkunft</div>
+            <h2 class="wfh">Europacamp Attersee</h2>
+            <div class="twocol">
+              <div><div class="lines"><div class="line l"></div><div class="line l"></div><div class="line m"></div><div class="line s"></div></div><span class="btn">Auf Karte zeigen ▸</span></div>
+              <div class="ph" style="min-height:150px;">[ FOTO: Unterkunft ]</div>
+            </div>
+          </div>
+
+          <div class="wf-section">
+            <div class="sectlabel">03 — Programm</div>
+            <h2 class="wfh">Was wir machen</h2>
+            <div class="grid" style="grid-template-columns:repeat(2,1fr);">
+              <div class="box"><span class="hpill">Aktivität 1</span><div class="line m" style="margin-top:8px;"></div><div class="line s"></div></div>
+              <div class="box"><span class="hpill">Aktivität 2</span><div class="line m" style="margin-top:8px;"></div><div class="line s"></div></div>
+              <div class="box"><span class="hpill">Aktivität 3</span><div class="line m" style="margin-top:8px;"></div><div class="line s"></div></div>
+              <div class="box"><span class="hpill">Aktivität 4</span><div class="line m" style="margin-top:8px;"></div><div class="line s"></div></div>
+            </div>
+          </div>
+
+          <div class="wf-section">
+            <div class="twocol">
+              <div>
+                <div class="sectlabel">04 — Kosten</div>
+                <h2 class="wfh">Gesamtkosten</h2>
+                <div class="box fill"><div class="bignum">€ [00]</div><div class="line m" style="margin-top:10px;"></div><div class="ann">inkl. Übernachtung, Programm, Verkehr · Zahlungsfrist</div></div>
+              </div>
+              <div>
+                <div class="sectlabel">05 — Lehrer:innen</div>
+                <h2 class="wfh">Begleitung</h2>
+                <div class="box" style="display:flex;gap:12px;align-items:center;margin-bottom:10px;"><div class="logo" style="border-radius:50%;">FOTO</div><div style="flex:1"><div class="line m"></div><div class="line s"></div></div></div>
+                <div class="box" style="display:flex;gap:12px;align-items:center;"><div class="logo" style="border-radius:50%;">FOTO</div><div style="flex:1"><div class="line m"></div><div class="line s"></div></div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="wf-section">
+            <div class="box" style="border-style:dashed;"><b>ℹ︎ Hinweise</b><div class="lines"><div class="line l"></div><div class="line m"></div></div><div class="ann">Leichtes Gepäck, Check-in nachmittags …</div></div>
+          </div>
+
+          <div class="wf-section" style="background:var(--accent-soft);">
+            <div class="sectlabel">06 — Kenntnisnahme</div>
+            <h2 class="wfh">Anmeldung &amp; Bestätigung</h2>
+            <div class="twocol">
+              <div class="box" style="background:var(--card);">
+                <div class="field"><label>NAME SCHÜLER:IN</label><div class="input"></div></div>
+                <div class="check"><span class="bx"></span><div class="line m" style="margin:3px 0;"></div></div>
+                <div class="check"><span class="bx"></span><div class="line s" style="margin:3px 0;"></div></div>
+                <div style="display:flex;gap:10px;margin-top:10px;"><span class="btn solid">Online bestätigen</span><span class="btn">PDF drucken ⎙</span></div>
+              </div>
+              <div class="ann" style="align-self:center;"><span class="tag">2 WEGE</span> Eltern können online bestätigen <i>oder</i> das Formular drucken &amp; unterschreiben.</div>
+            </div>
+          </div>
+
+          <div class="footer-mock"><span>HTL1 Linz · Exkursion Attersee</span><span>Kontakt · Impressum</span></div>
+        </div>
+
+        <!-- ============ DIRECTION B : KARTEN ============ -->
+        <div class="wf" data-wf="B">
+          <div class="mocknav">
+            <div class="logo">LOGO</div>
+            <div class="navlinks"><span>Übersicht</span><span>Programm</span><span>Anmeldung</span></div>
+            <div class="spacer"></div>
+            <span class="btn solid" style="padding:6px 16px;font-size:15px;">Jetzt anmelden</span>
+            <div class="burger"><span></span><span></span><span></span></div>
+          </div>
+
+          <div class="wf-hero" style="background:var(--accent-soft); border-bottom:2px dashed var(--accent);">
+            <span class="pill">HTL1 LINZ · 2 TAGE</span>
+            <h2 class="wfh" style="font-size:38px;margin-top:8px;">Europacamp Attersee</h2>
+            <div class="line m dark"></div>
+            <div class="ann"><span class="tag">FAKTEN-LEISTE</span> Die wichtigsten Eckdaten sofort sichtbar</div>
+            <div class="grid" style="grid-template-columns:repeat(4,1fr); margin-top:14px;">
+              <div class="box" style="background:var(--card);text-align:center;"><div class="sectlabel">DATUM</div><b>[Tag–Tag]</b></div>
+              <div class="box" style="background:var(--card);text-align:center;"><div class="sectlabel">TREFFPUNKT</div><b>[Ort / Uhr]</b></div>
+              <div class="box" style="background:var(--card);text-align:center;"><div class="sectlabel">KOSTEN</div><b>€ [00]</b></div>
+              <div class="box" style="background:var(--card);text-align:center;"><div class="sectlabel">FRIST</div><b>[Datum]</b></div>
+            </div>
+          </div>
+
+          <div class="wf-section">
+            <div class="sectlabel">Alles auf einen Blick</div>
+            <h2 class="wfh">Info-Kacheln</h2>
+            <div class="grid" style="grid-template-columns:repeat(3,1fr);">
+              <div class="box"><div class="ph" style="min-height:70px;">[ICON]</div><b style="display:block;margin-top:10px;">🚆 Anreise &amp; Abreise</b><div class="line l" style="margin-top:8px;"></div><div class="line s"></div></div>
+              <div class="box"><div class="ph" style="min-height:70px;">[ICON]</div><b style="display:block;margin-top:10px;">🏕 Unterkunft</b><div class="line l" style="margin-top:8px;"></div><div class="line s"></div></div>
+              <div class="box"><div class="ph" style="min-height:70px;">[ICON]</div><b style="display:block;margin-top:10px;">🎯 Programm</b><div class="line l" style="margin-top:8px;"></div><div class="line s"></div></div>
+              <div class="box"><div class="ph" style="min-height:70px;">[ICON]</div><b style="display:block;margin-top:10px;">💶 Kosten</b><div class="line l" style="margin-top:8px;"></div><div class="line s"></div></div>
+              <div class="box"><div class="ph" style="min-height:70px;">[ICON]</div><b style="display:block;margin-top:10px;">👥 Lehrer:innen</b><div class="line l" style="margin-top:8px;"></div><div class="line s"></div></div>
+              <div class="box"><div class="ph" style="min-height:70px;">[ICON]</div><b style="display:block;margin-top:10px;">🎒 Hinweise / Packliste</b><div class="line l" style="margin-top:8px;"></div><div class="line s"></div></div>
+            </div>
+            <div class="ann"><span class="tag">MODULAR</span> Jede Kachel kann anklickbar sein → Detail-Ansicht oder Aufklappen</div>
+          </div>
+
+          <div class="wf-section">
+            <div class="sectlabel">Programm</div>
+            <h2 class="wfh">Highlights</h2>
+            <div class="twocol">
+              <div class="ph" style="min-height:160px;">[ FOTO: Aktivität ]</div>
+              <div>
+                <div class="box" style="margin-bottom:10px;"><span class="hpill">Aktivität</span><div class="line l" style="margin-top:6px;"></div></div>
+                <div class="box" style="margin-bottom:10px;"><span class="hpill">Aktivität</span><div class="line l" style="margin-top:6px;"></div></div>
+                <div class="box"><span class="hpill">Aktivität</span><div class="line l" style="margin-top:6px;"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="wf-section" style="background:var(--accent);color:#fff;">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;">
+              <div>
+                <div class="sectlabel" style="color:#cfe6f0;">Kenntnisnahme</div>
+                <h2 class="wfh" style="color:#fff;">Teilnahme bestätigen</h2>
+                <div class="line l" style="background:rgba(255,255,255,.5);"></div>
+                <div class="line m" style="background:rgba(255,255,255,.5);"></div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:10px;">
+                <span class="btn" style="background:#fff;">Online-Formular ▸</span>
+                <span class="btn" style="background:transparent;color:#fff;border-color:#fff;">PDF drucken ⎙</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="footer-mock"><span>HTL1 Linz · Exkursion Attersee</span><span>Kontakt · Impressum</span></div>
+        </div>
+
+        <!-- ============ DIRECTION C : REISEPLAN ============ -->
+        <div class="wf" data-wf="C">
+          <div class="mocknav">
+            <div class="logo">LOGO</div>
+            <div class="navlinks"><span>Tag 1</span><span>Tag 2</span><span>Kosten</span><span>Anmeldung</span></div>
+            <div class="spacer"></div>
+            <div class="burger"><span></span><span></span><span></span></div>
+          </div>
+
+          <div class="wf-hero">
+            <span class="pill">REISEPLAN · 2 TAGE</span>
+            <h2 class="wfh" style="font-size:38px;margin-top:8px;">Europacamp Attersee</h2>
+            <div class="line m dark"></div>
+            <div class="ann"><span class="tag">CHRONOLOGISCH</span> Die Reise als Ablauf erzählt — Tag 1 &amp; Tag 2</div>
+          </div>
+
+          <div class="wf-section">
+            <div class="sidebar-layout">
+              <!-- timeline -->
+              <div>
+                <div class="box" style="margin-bottom:20px;">
+                  <h2 class="wfh" style="margin-top:0;">📅 Tag 1 — [Datum]</h2>
+                  <div class="tl">
+                    <div class="tl-item"><div class="tl-time">08:00</div><b>Treffpunkt &amp; Anreise</b><div class="line m"></div><div class="ann">Treffpunkt, Zug/Bus, Uhrzeit</div></div>
+                    <div class="tl-item"><div class="tl-time">[Uhr]</div><b>Ankunft &amp; Check-in</b><div class="line s"></div></div>
+                    <div class="tl-item"><div class="tl-time">[Uhr]</div><b>Programm / Aktivität</b><div class="line m"></div></div>
+                    <div class="tl-item"><div class="tl-time">Abend</div><b>Abendprogramm</b><div class="line s"></div></div>
+                  </div>
+                </div>
+                <div class="box">
+                  <h2 class="wfh" style="margin-top:0;">📅 Tag 2 — [Datum]</h2>
+                  <div class="tl">
+                    <div class="tl-item"><div class="tl-time">[Uhr]</div><b>Frühstück &amp; Check-out</b><div class="line s"></div></div>
+                    <div class="tl-item"><div class="tl-time">[Uhr]</div><b>Programm / Aktivität</b><div class="line m"></div></div>
+                    <div class="tl-item"><div class="tl-time">17:28</div><b>Abreise &amp; Ende</b><div class="line s"></div></div>
+                  </div>
+                </div>
+              </div>
+              <!-- sidebar -->
+              <div>
+                <div class="box fill" style="margin-bottom:14px;"><div class="sectlabel">KOSTEN</div><div class="bignum">€ [00]</div><div class="ann">inkl. alles · Frist [Datum]</div></div>
+                <div class="box" style="margin-bottom:14px;"><div class="sectlabel">PACKLISTE</div><div class="check"><span class="bx"></span><div class="line m" style="margin:3px 0;"></div></div><div class="check"><span class="bx"></span><div class="line s" style="margin:3px 0;"></div></div><div class="check"><span class="bx"></span><div class="line m" style="margin:3px 0;"></div></div></div>
+                <div class="box" style="margin-bottom:14px;"><div class="sectlabel">UNTERKUNFT</div><div class="ph" style="min-height:80px;margin-top:8px;">[ FOTO ]</div></div>
+                <div class="box"><div class="sectlabel">KONTAKT</div><div class="line m"></div><div class="line s"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="wf-section" style="background:var(--accent-soft); border-top:2px dashed var(--accent);">
+            <div class="sectlabel">Kenntnisnahme</div>
+            <h2 class="wfh">Anmeldung &amp; Bestätigung</h2>
+            <div class="box" style="background:var(--card);">
+              <div class="field"><label>NAME SCHÜLER:IN</label><div class="input"></div></div>
+              <div class="check"><span class="bx"></span><div class="line m" style="margin:3px 0;"></div></div>
+              <div style="display:flex;gap:10px;margin-top:10px;"><span class="btn solid">Online bestätigen</span><span class="btn">PDF drucken ⎙</span></div>
+            </div>
+          </div>
+
+          <div class="footer-mock"><span>HTL1 Linz · Exkursion Attersee</span><span>Kontakt · Impressum</span></div>
+        </div>
+
+      </div><!-- /canvas -->
+    </div><!-- /browser -->
+
+    <div class="legend">
+      <span class="sw"><span class="swbox" style="background:repeating-linear-gradient(45deg,transparent,transparent 4px,#e0ddd0 4px,#e0ddd0 6px);border-style:dashed;"></span> Bild-Platzhalter</span>
+      <span class="sw"><span class="swbox" style="background:#d8d4c8;"></span> Text / Inhalt folgt</span>
+      <span class="sw"><span class="swbox" style="background:var(--note);border-color:var(--note);"></span> Notiz zur Umsetzung</span>
+      <span class="sw" style="margin-left:auto;"><b>Lo-Fi Wireframe</b> — Layout &amp; Struktur, noch kein finales Design</span>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  const body = document.body;
+  // tab switching
+  document.querySelectorAll('#tabs .tab').forEach(t=>{
+    t.addEventListener('click', ()=>{
+      const wf = t.dataset.wf;
+      document.querySelectorAll('#tabs .tab').forEach(x=>x.classList.toggle('active', x===t));
+      document.querySelectorAll('.wf').forEach(x=>x.classList.toggle('active', x.dataset.wf===wf));
+      document.querySelectorAll('.approach-note').forEach(x=>x.style.display = x.dataset.for===wf ? 'flex':'none');
+      document.querySelector('.canvas').scrollTop = 0;
+      window.scrollTo({top:0, behavior:'smooth'});
+    });
+  });
+  // device toggle
+  const browser = document.getElementById('browser');
+  document.querySelectorAll('#device button').forEach(b=>{
+    b.addEventListener('click', ()=>{
+      document.querySelectorAll('#device button').forEach(x=>x.classList.toggle('on', x===b));
+      browser.classList.toggle('mobile', b.dataset.dev==='mobile');
+    });
+  });
+  // annotations toggle
+  document.getElementById('annChk').addEventListener('change', e=>{
+    body.classList.toggle('no-ann', !e.target.checked);
+  });
+</script>
+</body>
+</html>
