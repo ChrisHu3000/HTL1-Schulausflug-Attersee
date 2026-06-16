@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Europacamp Attersee · HTL1 Linz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sand:#f3ede0;
+    --sand-2:#ece4d3;
+    --cream:#fffdf8;
+    --ink:#172e2b;
+    --ink-soft:#46584f;
+    --muted:#7b8a80;
+    --line:#ddd4c2;
+    --teal:#11707a;
+    --teal-d:#0c545c;
+    --teal-bright:#1ba2ac;
+    --teal-soft:#dceef0;
+    --amber:#e0863a;
+    --amber-soft:#f6e4cf;
+    --coral:#d9603f;
+    --disp:'Bricolage Grotesque', sans-serif;
+    --body:'Hanken Grotesk', sans-serif;
+    --r:18px;
+    --shadow:0 1px 0 rgba(23,46,43,.04), 0 14px 30px -18px rgba(12,84,92,.35);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; background:var(--sand); color:var(--ink);
+    font-family:var(--body); font-size:17px; line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{font-family:var(--disp); font-weight:700; line-height:1.05; margin:0;}
+  a{color:inherit;}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 26px;}
+  .eyebrow{
+    font-family:var(--body); font-weight:700; font-size:12.5px;
+    letter-spacing:.16em; text-transform:uppercase; color:var(--teal);
+    display:inline-flex; align-items:center; gap:9px;
+  }
+  .eyebrow::before{content:""; width:22px; height:2px; background:var(--teal); border-radius:2px; display:inline-block;}
+
+  /* ---------- Top nav ---------- */
+  header.nav{
+    position:sticky; top:0; z-index:60;
+    background:rgba(243,237,224,.82); backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-in{display:flex; align-items:center; gap:18px; height:68px;}
+  .brand{display:flex; align-items:center; gap:11px; font-family:var(--disp); font-weight:700; font-size:18px;}
+  .brand .mark{
+    width:38px; height:38px; border-radius:11px; background:var(--teal); color:#fff;
+    display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700;
+    letter-spacing:.02em; box-shadow:0 6px 14px -6px var(--teal);
+  }
+  .brand small{display:block; font-family:var(--body); font-weight:600; font-size:11px; color:var(--muted); letter-spacing:.04em;}
+  nav.links{margin-left:auto; display:flex; gap:6px;}
+  nav.links a{
+    text-decoration:none; font-weight:600; font-size:15px; color:var(--ink-soft);
+    padding:8px 14px; border-radius:11px; transition:.15s;
+  }
+  nav.links a:hover{background:var(--sand-2); color:var(--ink);}
+  .nav-cta{
+    text-decoration:none; font-weight:700; font-size:15px; color:#fff; background:var(--teal);
+    padding:10px 18px; border-radius:12px; box-shadow:0 8px 18px -8px var(--teal);
+    transition:.15s; white-space:nowrap;
+  }
+  .nav-cta:hover{background:var(--teal-d); transform:translateY(-1px);}
+
+  /* ---------- Hero ---------- */
+  .hero{padding:54px 0 26px;}
+  .hero-grid{display:grid; grid-template-columns:1.05fr .95fr; gap:40px; align-items:center;}
+  .hero h1{font-size:clamp(40px,6vw,68px); letter-spacing:-.02em;}
+  .hero h1 .swash{color:var(--teal); display:block;}
+  .hero .lede{font-size:19px; color:var(--ink-soft); margin:18px 0 24px; max-width:38ch;}
+  .hero-cta{display:flex; gap:12px; flex-wrap:wrap;}
+  .btn{
+    display:inline-flex; align-items:center; gap:9px; cursor:pointer;
+    font-family:var(--body); font-weight:700; font-size:16px; text-decoration:none;
+    padding:13px 22px; border-radius:13px; border:2px solid transparent; transition:.16s;
+  }
+  .btn.primary{background:var(--teal); color:#fff; box-shadow:0 10px 22px -10px var(--teal);}
+  .btn.primary:hover{background:var(--teal-d); transform:translateY(-1px);}
+  .btn.ghost{background:transparent; color:var(--ink); border-color:var(--line);}
+  .btn.ghost:hover{border-color:var(--teal); color:var(--teal);}
+  .hero-photo{position:relative;}
+  .hero-photo image-slot{width:100%; height:380px; display:block; box-shadow:var(--shadow);}
+  .hero-badge{
+    position:absolute; left:-14px; bottom:-16px; background:var(--cream);
+    border:1px solid var(--line); border-radius:15px; padding:12px 16px;
+    box-shadow:var(--shadow); display:flex; align-items:center; gap:12px;
+  }
+  .hero-badge .big{font-family:var(--disp); font-weight:800; font-size:24px; color:var(--teal); line-height:1;}
+  .hero-badge small{display:block; color:var(--muted); font-size:12px; font-weight:600;}
+
+  /* ---------- Facts strip ---------- */
+  .facts{margin-top:34px;}
+  .facts-grid{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:0;
+    background:var(--cream); border:1px solid var(--line); border-radius:var(--r);
+    overflow:hidden; box-shadow:var(--shadow);
+  }
+  .fact{padding:20px 22px; border-right:1px solid var(--line);}
+  .fact:last-child{border-right:none;}
+  .fact .k{font-size:12px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--muted);}
+  .fact .v{font-family:var(--disp); font-weight:700; font-size:20px; margin-top:5px; color:var(--ink);}
+  .fact .v small{font-family:var(--body); font-weight:600; font-size:13px; color:var(--ink-soft); display:block;}
+
+  /* ---------- Sections ---------- */
+  section{padding:56px 0;}
+  .sec-head{margin-bottom:30px; max-width:60ch;}
+  .sec-head h2{font-size:clamp(28px,3.6vw,40px); letter-spacing:-.01em; margin-top:10px;}
+  .sec-head p{color:var(--ink-soft); margin:12px 0 0;}
+
+  /* card grid */
+  .cards{display:grid; grid-template-columns:repeat(3,1fr); gap:18px;}
+  .card{
+    background:var(--cream); border:1px solid var(--line); border-radius:var(--r);
+    padding:22px; box-shadow:var(--shadow); display:flex; flex-direction:column; gap:6px;
+    transition:.18s;
+  }
+  .card:hover{transform:translateY(-3px); box-shadow:0 1px 0 rgba(23,46,43,.04), 0 22px 40px -22px rgba(12,84,92,.45);}
+  .card .num{
+    width:42px; height:42px; border-radius:12px; background:var(--teal-soft); color:var(--teal-d);
+    font-family:var(--disp); font-weight:800; font-size:16px; display:flex; align-items:center; justify-content:center;
+    margin-bottom:10px;
+  }
+  .card.amber .num{background:var(--amber-soft); color:#a85d20;}
+  .card h3{font-size:21px;}
+  .card .meta{color:var(--ink-soft); font-size:15.5px;}
+  .card ul{margin:6px 0 0; padding-left:18px; color:var(--ink-soft); font-size:15.5px;}
+  .card ul li{margin:3px 0;}
+  .card .tags{display:flex; flex-wrap:wrap; gap:7px; margin-top:10px;}
+  .tag{font-size:13px; font-weight:600; color:var(--teal-d); background:var(--teal-soft); padding:4px 11px; border-radius:20px;}
+  .tag.amber{color:#a85d20; background:var(--amber-soft);}
+  .card .link{margin-top:auto; padding-top:12px;}
+  .card .link a{color:var(--teal); font-weight:700; text-decoration:none; font-size:15px; display:inline-flex; gap:6px; align-items:center;}
+  .card .link a:hover{gap:9px;}
+
+  /* ---------- Programm timeline ---------- */
+  #programm{background:var(--sand-2);}
+  .days{display:grid; grid-template-columns:repeat(3,1fr); gap:18px;}
+  .day{background:var(--cream); border:1px solid var(--line); border-radius:var(--r); overflow:hidden; box-shadow:var(--shadow); display:flex; flex-direction:column;}
+  .day-head{padding:18px 22px; background:var(--teal); color:#fff;}
+  .day-head .wd{font-size:12.5px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; opacity:.85;}
+  .day-head .dt{font-family:var(--disp); font-weight:800; font-size:24px; margin-top:2px;}
+  .day:nth-child(2) .day-head{background:var(--teal-bright);}
+  .day:nth-child(3) .day-head{background:var(--amber);}
+  .day-body{padding:8px 22px 22px;}
+  .step{position:relative; padding:16px 0 16px 26px; border-bottom:1px dashed var(--line);}
+  .step:last-child{border-bottom:none;}
+  .step::before{content:""; position:absolute; left:0; top:21px; width:11px; height:11px; border-radius:50%; background:var(--cream); border:2.5px solid var(--teal);}
+  .step::after{content:""; position:absolute; left:5px; top:32px; bottom:-4px; width:2px; background:var(--line);}
+  .step:last-child::after{display:none;}
+  .step .t{font-family:var(--disp); font-weight:700; font-size:16.5px;}
+  .step .d{font-size:14.5px; color:var(--ink-soft); margin-top:2px;}
+  .step a{color:var(--teal); font-weight:600; text-decoration:none; font-size:14px;}
+  .step a:hover{text-decoration:underline;}
+  .step .pin{display:inline-flex; align-items:center; gap:5px; margin-top:6px; font-size:13px; font-weight:600; color:var(--amber);}
+
+  /* ---------- Unterkunft ---------- */
+  .stay-grid{display:grid; grid-template-columns:1fr 1fr; gap:34px; align-items:center;}
+  .stay-photos{display:grid; grid-template-columns:1fr 1fr; grid-template-rows:1fr 1fr; gap:12px; height:380px;}
+  .stay-photos image-slot{width:100%; height:100%; display:block; box-shadow:var(--shadow);}
+  .stay-photos image-slot:first-child{grid-row:span 2;}
+  .activity-row{display:flex; flex-wrap:wrap; gap:10px; margin-top:18px;}
+  .activity{
+    display:inline-flex; align-items:center; gap:9px; background:var(--cream); border:1px solid var(--line);
+    border-radius:30px; padding:9px 16px; font-weight:600; font-size:15px; box-shadow:var(--shadow);
+  }
+  .activity .dot{width:9px; height:9px; border-radius:50%; background:var(--teal-bright);}
+  .activity:nth-child(2n) .dot{background:var(--amber);}
+
+  /* ---------- Kosten ---------- */
+  #kosten{background:var(--teal-d); color:#eaf6f6;}
+  #kosten .eyebrow{color:#8fd6dc;}
+  #kosten .eyebrow::before{background:#8fd6dc;}
+  #kosten h2{color:#fff;}
+  .cost-grid{display:grid; grid-template-columns:1fr 1fr 1.1fr; gap:18px; margin-top:8px;}
+  .cost-card{background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.16); border-radius:var(--r); padding:26px;}
+  .cost-card .k{font-size:13px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:#9fd9de;}
+  .cost-card .amount{font-family:var(--disp); font-weight:800; font-size:52px; line-height:1; margin:10px 0 6px;}
+  .cost-card .amount span{font-size:26px;}
+  .cost-card p{color:#cfeaea; font-size:15px; margin:0;}
+  .cost-card.note{background:var(--amber); border-color:transparent; color:#3a1f08; display:flex; flex-direction:column; justify-content:center;}
+  .cost-card.note .k{color:#5e3413;}
+  .cost-card.note strong{font-family:var(--disp); font-size:22px; display:block; margin:6px 0;}
+
+  /* ---------- Team ---------- */
+  .team-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:18px;}
+  .person{background:var(--cream); border:1px solid var(--line); border-radius:var(--r); padding:22px; box-shadow:var(--shadow); text-align:left;}
+  .person image-slot{width:64px; height:64px; display:block; margin-bottom:14px;}
+  .person .role{font-size:13px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--teal);}
+  .person h3{font-size:20px; margin-top:3px;}
+  .person.lead{border-color:var(--teal); box-shadow:0 0 0 1px var(--teal), var(--shadow);}
+
+  /* ---------- Voraussetzungen ---------- */
+  .req-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:14px;}
+  .req{display:flex; gap:14px; align-items:flex-start; background:var(--cream); border:1px solid var(--line); border-radius:14px; padding:18px 20px; box-shadow:var(--shadow);}
+  .req .ic{width:30px; height:30px; flex:none; border-radius:9px; background:var(--teal-soft); color:var(--teal-d); display:flex; align-items:center; justify-content:center; font-weight:800; font-family:var(--disp);}
+  .req.warn .ic{background:var(--amber-soft); color:#a85d20;}
+  .req h4{font-size:16.5px;}
+  .req p{margin:3px 0 0; font-size:14.5px; color:var(--ink-soft);}
+
+  /* ---------- Anmeldung ---------- */
+  #anmeldung{background:var(--sand-2);}
+  .form-card{
+    background:var(--cream); border:1px solid var(--line); border-radius:24px; box-shadow:var(--shadow);
+    display:grid; grid-template-columns:1.15fr 1fr; overflow:hidden;
+  }
+  .form-left{padding:38px;}
+  .form-right{padding:38px; background:var(--teal-d); color:#eaf6f6;}
+  .form-right h3{color:#fff; font-size:24px;}
+  .form-right ul{list-style:none; padding:0; margin:18px 0 0;}
+  .form-right li{display:flex; gap:11px; align-items:flex-start; margin:12px 0; font-size:15px; color:#d4ecec;}
+  .form-right li b{color:#fff;}
+  .check-circle{width:22px; height:22px; flex:none; border-radius:50%; background:var(--teal-bright); color:#fff; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; margin-top:1px;}
+  .field{margin-bottom:16px;}
+  .field label{display:block; font-size:13px; font-weight:700; letter-spacing:.04em; color:var(--ink-soft); margin-bottom:6px;}
+  .field input[type=text]{
+    width:100%; height:46px; border:1.5px solid var(--line); border-radius:11px; background:#fff;
+    padding:0 14px; font-family:var(--body); font-size:16px; color:var(--ink); transition:.15s;
+  }
+  .field input:focus{outline:none; border-color:var(--teal); box-shadow:0 0 0 3px var(--teal-soft);}
+  .row2{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+  .consent{display:flex; gap:11px; align-items:flex-start; padding:12px 0; border-top:1px solid var(--line);}
+  .consent input{width:20px; height:20px; margin-top:2px; accent-color:var(--teal); flex:none;}
+  .consent label{font-size:14.5px; color:var(--ink-soft); line-height:1.5;}
+  .form-actions{display:flex; gap:12px; flex-wrap:wrap; margin-top:18px;}
+  .ok-msg{display:none; background:var(--teal-soft); border:1px solid var(--teal); color:var(--teal-d); border-radius:13px; padding:16px 18px; font-weight:600; margin-top:16px;}
+  .ok-msg.show{display:block;}
+
+  /* ---------- Footer ---------- */
+  footer{background:var(--ink); color:#cdd8d2; padding:46px 0 30px;}
+  footer .f-grid{display:flex; justify-content:space-between; gap:30px; flex-wrap:wrap;}
+  footer .brand .mark{background:var(--teal-bright);}
+  footer .brand{color:#fff;}
+  footer a{color:#9fd9de; text-decoration:none;}
+  footer .fcol h4{color:#fff; font-size:14px; letter-spacing:.06em; text-transform:uppercase; margin-bottom:10px;}
+  footer .fcol p, footer .fcol a{display:block; font-size:14.5px; margin:5px 0; color:#b9c6bf;}
+  footer .legal{margin-top:30px; padding-top:18px; border-top:1px solid rgba(255,255,255,.12); font-size:13px; color:#8a978f; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;}
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:900px){
+    .hero-grid{grid-template-columns:1fr; gap:30px;}
+    .facts-grid{grid-template-columns:1fr 1fr;}
+    .fact:nth-child(2){border-right:none;}
+    .fact:nth-child(1),.fact:nth-child(2){border-bottom:1px solid var(--line);}
+    .cards, .days, .team-grid{grid-template-columns:1fr;}
+    .cost-grid{grid-template-columns:1fr;}
+    .stay-grid{grid-template-columns:1fr;}
+    .req-grid{grid-template-columns:1fr;}
+    .form-card{grid-template-columns:1fr;}
+    nav.links{display:none;}
+  }
+
+  /* ---------- Print (Teilnahmebestätigung) ---------- */
+  @media print{
+    header.nav, .hero, .facts, #ueberblick, #programm, #unterkunft, #kosten, #voraussetzungen, footer, .form-right, .form-actions, .ok-msg, .no-print{display:none !important;}
+    body{background:#fff; font-size:12pt;}
+    #anmeldung{background:#fff; padding:0;}
+    .form-card{display:block; border:none; box-shadow:none; border-radius:0;}
+    .form-left{padding:0;}
+    .print-only{display:block !important;}
+    .field input[type=text]{border:none; border-bottom:1.5px solid #000; border-radius:0; height:34px;}
+    .sign-line{display:block !important;}
+  }
+  .print-only{display:none;}
+  .sign-line{display:none; margin-top:34px;}
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<header class="nav">
+  <div class="wrap nav-in">
+    <div class="brand">
+      <span class="mark">HTL1</span>
+      <span>Europacamp Attersee<small>HTL1 Linz · Exkursion</small></span>
+    </div>
+    <nav class="links">
+      <a href="#ueberblick">Überblick</a>
+      <a href="#programm">Programm</a>
+      <a href="#unterkunft">Unterkunft</a>
+      <a href="#kosten">Kosten</a>
+      <a href="#anmeldung">Anmeldung</a>
+    </nav>
+    <a href="#anmeldung" class="nav-cta">Teilnahme bestätigen</a>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow">2 NÄCHTE · 3 TAGE · KLASSE [2MMA]</span>
+        <h1>Sommer­tage am<span class="swash">Europacamp Attersee</span></h1>
+        <p class="lede">Baden, Canyoning, Volleyball und gemeinsames Grillen direkt am See. Alle Infos zur Exkursion – und die Teilnahmebestätigung – findest du hier.</p>
+        <div class="hero-cta">
+          <a href="#anmeldung" class="btn primary">Jetzt Teilnahme bestätigen →</a>
+          <a href="#programm" class="btn ghost">Programm ansehen</a>
+        </div>
+      </div>
+      <div class="hero-photo">
+        <image-slot id="hero" shape="rounded" radius="20" placeholder="Foto Attersee / Europacamp hierher ziehen"></image-slot>
+        <div class="hero-badge">
+          <span class="big">29.6.</span>
+          <span><small>Anreise</small><b>bis Mi 1.7.2026</b></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- facts strip -->
+    <div class="facts">
+      <div class="facts-grid">
+        <div class="fact"><div class="k">Termin</div><div class="v">Mo 29.6. – Mi 1.7.<small>2026 · 3 Tage</small></div></div>
+        <div class="fact"><div class="k">Anreise</div><div class="v">Zug ab Linz<small>→ Schörfling/Kammer</small></div></div>
+        <div class="fact"><div class="k">Kostenbeitrag</div><div class="v">€ 160,–<small>+ € 40,– Taschengeld</small></div></div>
+        <div class="fact"><div class="k">Rückgabe Formular</div><div class="v">Di 23.6.<small>signiert von Eltern</small></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ÜBERBLICK (Kacheln) ============ -->
+<section id="ueberblick">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Alles auf einen Blick</span>
+      <h2>Das Wichtigste in Kürze</h2>
+      <p>Sechs Kacheln, alle Eckdaten. Details zu Programm, Unterkunft und Kosten findest du in den jeweiligen Abschnitten weiter unten.</p>
+    </div>
+    <div class="cards">
+
+      <div class="card">
+        <div class="num">01</div>
+        <h3>An- &amp; Rückreise</h3>
+        <p class="meta">Gemeinsam mit dem Zug, leichtes Gepäck (Rucksack).</p>
+        <ul>
+          <li>Mo 29.6. — Linz → Schörfling/Kammer → Weissenbach am Attersee</li>
+          <li>Mi 1.7. — Weissenbach am Attersee → Schörfling/Kammer → Linz</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="num">02</div>
+        <h3>Unterkunft</h3>
+        <p class="meta">Europacamp Attersee – wir bewohnen die Bungalows.</p>
+        <ul>
+          <li>4854 Weissenbach am Attersee</li>
+          <li>Tischtennis, Volleyball, Minigolf, Badeplatz, Grillen (Selbstversorger), Sportwiese</li>
+        </ul>
+        <div class="link"><a href="https://www.europacamp.at/gelaendeplan" target="_blank" rel="noopener">Geländeplan ansehen →</a></div>
+      </div>
+
+      <div class="card">
+        <div class="num">03</div>
+        <h3>Programm</h3>
+        <p class="meta">Highlights des Schulausflugs</p>
+        <div class="tags">
+          <span class="tag">Picknick Wengermühle</span>
+          <span class="tag amber">Canyoning</span>
+          <span class="tag">Grillabend</span>
+        </div>
+        <div class="link"><a href="#programm">Zum Tagesablauf →</a></div>
+      </div>
+
+      <div class="card amber">
+        <div class="num">04</div>
+        <h3>Kosten</h3>
+        <p class="meta">Beitrag für Übernachtung, Programm &amp; Verkehr.</p>
+        <ul>
+          <li><b>€ 160,–</b> Kostenbeitrag</li>
+          <li><b>€ 40,–</b> empfohlenes Taschengeld</li>
+        </ul>
+        <div class="link"><a href="#kosten">Details zu den Kosten →</a></div>
+      </div>
+
+      <div class="card">
+        <div class="num">05</div>
+        <h3>Leitung &amp; Begleitung</h3>
+        <p class="meta">Drei Lehrpersonen inkl. Sportlehrerin</p>
+        <ul>
+          <li><b>Christof Huemer</b> — Klassenvorstand</li>
+          <li>Jennifer Eder &amp; Kornelia Gabauer</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="num">06</div>
+        <h3>Voraussetzungen</h3>
+        <p class="meta">Damit alle sicher dabei sein können.</p>
+        <div class="tags">
+          <span class="tag">Schwimmen können</span>
+          <span class="tag amber">Alkoholverbot</span>
+          <span class="tag">Elternunterschrift</span>
+        </div>
+        <div class="link"><a href="#voraussetzungen">Alle Bedingungen →</a></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROGRAMM ============ -->
+<section id="programm">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Tagesablauf</span>
+      <h2>Erholungstage am Attersee</h2>
+      <p>Zeiten werden vor der Abreise noch genau bekannt gegeben. Externe Links führen zu den Aktivitäten.</p>
+    </div>
+    <div class="days">
+
+      <div class="day">
+        <div class="day-head"><div class="wd">Montag</div><div class="dt">29. Juni</div></div>
+        <div class="day-body">
+          <div class="step"><div class="t">Anreise</div><div class="d">Mit dem Zug von Linz nach Kammer/Schörfling am Attersee.</div></div>
+          <div class="step">
+            <div class="t">Picknick an der Wengermühle</div>
+            <div class="d">Pause mit Bademöglichkeit am Weg.</div>
+            <a href="https://www.komoot.com/highlight/478824" target="_blank" rel="noopener" class="pin">◎ Highlight auf komoot →</a>
+          </div>
+          <div class="step"><div class="t">Check-in im Europacamp</div><div class="d">Jugendherberge und Bungalows beziehen – inkl. Abendessen.</div></div>
+        </div>
+      </div>
+
+      <div class="day">
+        <div class="day-head"><div class="wd">Dienstag</div><div class="dt">30. Juni</div></div>
+        <div class="day-body">
+          <div class="step"><div class="t">Frühstück</div><div class="d">Gemeinsam im Camp.</div></div>
+          <div class="step">
+            <div class="t">Canyoning im Weissenbachtal</div>
+            <div class="d">Geführtes Familien-Canyoning Gimbach mit ÖO Adventures.</div>
+            <a href="https://www.ooe-adventures.at/de/abenteuer/liste/canyoning/familien-canyoning-gimbach" target="_blank" rel="noopener" class="pin">◎ Zur Tour →</a>
+          </div>
+          <div class="step"><div class="t">Freizeit am Camp</div><div class="d">Volleyball, Tischtennis, Sportwiese, Minigolf, Baden.</div></div>
+          <div class="step"><div class="t">Gemeinsames Grillen</div><div class="d">Grillabend im Europacamp – Selbstversorgung, Taschengeld mitnehmen.</div></div>
+        </div>
+      </div>
+
+      <div class="day">
+        <div class="day-head"><div class="wd">Mittwoch</div><div class="dt">1. Juli</div></div>
+        <div class="day-body">
+          <div class="step"><div class="t">Frühstück &amp; Check-out</div><div class="d">Bungalows räumen, Gepäck packen.</div></div>
+          <div class="step"><div class="t">Rückreise nach Linz</div><div class="d">Zuerst mit dem Bus von Weissenbach nach Schörfling/Kammer und mit dem Zug zurück nach Linz.</div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ UNTERKUNFT ============ -->
+<section id="unterkunft">
+  <div class="wrap">
+    <div class="stay-grid">
+      <div>
+        <span class="eyebrow">Unterkunft</span>
+        <h2 style="font-size:clamp(28px,3.6vw,40px); margin-top:10px;">Europacamp Attersee</h2>
+        <p style="color:var(--ink-soft); margin:14px 0 0;">Direkt am See in <b>4854 Weissenbach am Attersee</b>. Wir wohnen in den Bungalows – mit reichlich Platz für Sport, Spiel und gemeinsame Abende. Am Abend wird zusammen gegrillt.</p>
+        <div class="activity-row">
+          <span class="activity"><span class="dot"></span>Tischtennis</span>
+          <span class="activity"><span class="dot"></span>Volleyball</span>
+          <span class="activity"><span class="dot"></span>Sportwiese</span>
+          <span class="activity"><span class="dot"></span>Baden</span>
+          <span class="activity"><span class="dot"></span>Grillen</span>
+        </div>
+        <div style="margin-top:22px; display:flex; gap:12px; flex-wrap:wrap;">
+          <a href="https://www.europacamp.at/unterkuenfte" target="_blank" rel="noopener" class="btn primary">Unterkünfte ansehen →</a>
+          <a href="https://www.europacamp.at/europabad" target="_blank" rel="noopener" class="btn ghost">Europabad ansehen →</a>
+          <a href="https://www.europacamp.at/freizeitangebote" target="_blank" rel="noopener" class="btn ghost">Freizeitangebote →</a>
+          <a href="https://www.europacamp.at/gelaendeplan" target="_blank" rel="noopener" class="btn ghost">Geländeplan öffnen →</a>
+        </div>
+      </div>
+      <div class="stay-photos">
+        <image-slot id="stay1" shape="rounded" radius="16" placeholder="Bungalow / Camp"></image-slot>
+        <image-slot id="stay2" shape="rounded" radius="16" placeholder="See"></image-slot>
+        <image-slot id="stay3" shape="rounded" radius="16" placeholder="Sportwiese"></image-slot>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ KOSTEN ============ -->
+<section id="kosten">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Kosten &amp; Bezahlung</span>
+      <h2>Was die Exkursion kostet</h2>
+    </div>
+    <div class="cost-grid">
+      <div class="cost-card">
+        <div class="k">Kostenbeitrag</div>
+        <div class="amount">€ 160,–</div>
+        <p>Inkl. Übernachtung mit Frühstück und Programm (u. a. Canyoning). An- &amp; Rückreise mit dem Zug und dem Jugendticket OÖ gratis.</p>
+      </div>
+      <div class="cost-card">
+        <div class="k">Taschengeld</div>
+        <div class="amount">€ 40,–</div>
+        <p>Empfohlener Betrag für Verpflegung unterwegs und persönliche Ausgaben.</p>
+      </div>
+      <div class="cost-card note">
+        <div class="k">Zahlung</div>
+        <strong>Bis 23.6.2026</strong>
+        <p style="color:#5e3413;">Bezahlung und signierte Teilnahmebestätigung fristgerecht beim Klassenvorstand, bis zur nächsten SOPK Stunde am Di 23.6., abgeben.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VORAUSSETZUNGEN ============ -->
+<section id="voraussetzungen">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Teilnahme</span>
+      <h2>Voraussetzungen für die Teilnahme</h2>
+      <p>Diese Punkte gelten für alle. Mit der Unterschrift der Erziehungsberechtigten werden sie bestätigt.</p>
+    </div>
+    <div class="req-grid">
+      <div class="req"><div class="ic">✓</div><div><h4>Schwimmen können</h4><p>Wegen Baden im See &amp; Canyoning müssen Schüler:innen sicher schwimmen können.</p></div></div>
+      <div class="req"><div class="ic">✓</div><div><h4>Keine Verhaltensauffälligkeiten</h4><p>Verlässlichkeit und zufriedenstellendes Verhalten in der Schule ist Voraussetzung für die Teilnahme.</p></div></div>
+      <div class="req warn"><div class="ic">!</div><div><h4>Striktes Alkoholverbot</h4><p>Während der gesamten Exkursion gilt ein striktes Alkoholverbot.</p></div></div>
+      <div class="req warn"><div class="ic">✎</div><div><h4>Signierte Teilnahmebestätigung</h4><p>Unterschriebene Bestätigung der Erziehungsberechtigten ist verpflichtend.</p></div></div>
+    </div>
+
+    <!-- Team -->
+    <div class="sec-head" style="margin-top:46px;">
+      <span class="eyebrow">Begleitung</span>
+      <h2>Wer mitfährt</h2>
+    </div>
+    <div class="team-grid">
+      <div class="person lead">
+        <image-slot id="t1" shape="circle" placeholder="Foto"></image-slot>
+        <div class="role">Klassenvorstand · Leitung</div>
+        <h3>Christof Huemer</h3>
+      </div>
+      <div class="person">
+        <image-slot id="t2" shape="circle" placeholder="Foto"></image-slot>
+        <div class="role">Begleitung · Fachlehrkraft</div>
+        <h3>Jennifer Eder</h3>
+      </div>
+      <div class="person">
+        <image-slot id="t3" shape="circle" placeholder="Foto"></image-slot>
+        <div class="role">Begleitung · Sportlehrerin</div>
+        <h3>Kornelia Gabauer</h3>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ANMELDUNG ============ -->
+<section id="anmeldung">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Kenntnisnahme</span>
+      <h2>Teilnahme bestätigen</h2>
+      <p>Online ausfüllen <b>oder</b> als PDF drucken und unterschrieben abgeben. Beide Wege sind möglich.</p>
+    </div>
+
+    <div class="form-card">
+      <div class="form-left">
+        <p class="print-only" style="font-family:var(--disp); font-weight:800; font-size:20px; margin-bottom:6px;">Teilnahmebestätigung — Europacamp Attersee, Mo 29.6.–Mi 1.7.2026</p>
+        <form id="confirmForm">
+          <div class="row2">
+            <div class="field"><label>Name Schüler:in</label><input type="text" name="student" required></div>
+            <div class="field"><label>Klasse</label><input type="text" name="klasse" placeholder="z. B. 2MMA"></div>
+          </div>
+          <div class="row2">
+            <div class="field"><label>Name Erziehungsberechtigte:r</label><input type="text" name="parent" required></div>
+            <div class="field"><label>Einstiegstelle Zug (falls abweichend)</label><input type="text" name="station" placeholder="z. B. Linz Hbf"></div>
+          </div>
+
+          <div class="consent"><input type="checkbox" id="c1" required><label for="c1">Ich habe die Infos zur Exkursion zur Kenntnis genommen und <b>bestätige die Teilnahme</b> meiner Tochter / meines Sohnes.</label></div>
+          <div class="consent"><input type="checkbox" id="c2" required><label for="c2">Mein Kind <b>kann sicher schwimmen</b> und ich akzeptiere das <b>strikte Alkoholverbot</b>.</label></div>
+          <div class="consent"><input type="checkbox" id="c3"><label for="c3">Mein Kind <b>kann nicht teilnehmen</b> (bitte Begründung der Klassenleitung mitteilen).</label></div>
+
+          <!-- handwritten signature line for print -->
+          <div class="sign-line">
+            <div style="display:flex; gap:40px; margin-top:30px;">
+              <div style="flex:1; border-top:1.5px solid #000; padding-top:6px; font-size:11pt;">Datum</div>
+              <div style="flex:2; border-top:1.5px solid #000; padding-top:6px; font-size:11pt;">Unterschrift Erziehungsberechtigte:r</div>
+            </div>
+          </div>
+
+          <div class="form-actions no-print">
+            <button type="submit" class="btn primary">Online bestätigen</button>
+            <button type="button" class="btn ghost" onclick="window.print()">Als PDF drucken ⎙</button>
+          </div>
+          <div class="ok-msg" id="okMsg">✓ Danke! Deine Bestätigung wurde gespeichert. Bitte den Kostenbeitrag fristgerecht abgeben.</div>
+        </form>
+      </div>
+
+      <div class="form-right no-print">
+        <h3>So funktioniert's</h3>
+        <ul>
+          <li><span class="check-circle">1</span><div><b>Formular ausfüllen</b> — Name, Klasse und Bestätigung ankreuzen.</div></li>
+          <li><span class="check-circle">2</span><div><b>Online absenden</b> oder als PDF drucken und unterschreiben.</div></li>
+          <li><span class="check-circle">3</span><div>Kostenbeitrag fristgerecht beim KV abgeben.</div></li>
+        </ul>
+        <p style="margin-top:24px; font-size:14px; color:#9fd9de;">Fragen? Wende dich an den Klassenvorstand Christof Huemer.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="f-grid">
+      <div class="fcol">
+        <div class="brand"><span class="mark">HTL1</span><span style="font-family:var(--disp);font-weight:700;font-size:18px;">Europacamp Attersee</span></div>
+        <p style="margin-top:12px; max-width:30ch; color:#b9c6bf;">Exkursion der HTL1 Linz · Mo 29.6. – Mi 1.7.2026</p>
+      </div>
+      <div class="fcol">
+        <h4>Schnellzugriff</h4>
+        <a href="#programm">Programm</a>
+        <a href="#unterkunft">Unterkunft</a>
+        <a href="#kosten">Kosten</a>
+        <a href="#anmeldung">Anmeldung</a>
+      </div>
+      <div class="fcol">
+        <h4>Kontakt</h4>
+        <p>Christof Huemer<br>Klassenvorstand</p>
+        <a href="https://www.europacamp.at" target="_blank" rel="noopener">europacamp.at</a>
+      </div>
+    </div>
+    <div class="legal">
+      <span>© 2026 HTL1 Linz · Schulausflug Klasse 2MMA</span>
+      <span>Impressum · Datenschutz</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// image-slot web component — drag-and-drop photo slots with localStorage persistence
+(() => {
+  const STORE_KEY = 'attersee_image_slots';
+  const MAX_DIM = 1200;
+  const ACCEPT = ['image/png', 'image/jpeg', 'image/webp', 'image/avif'];
+
+  // Shared slot store backed by localStorage
+  let slots = {};
+  try { slots = JSON.parse(localStorage.getItem(STORE_KEY) || '{}'); } catch(e) {}
+
+  function saveSlots() {
+    try { localStorage.setItem(STORE_KEY, JSON.stringify(slots)); } catch(e) {}
+  }
+
+  const subs = new Set();
+  function getSlot(id) {
+    const v = slots[id];
+    if (!v) return null;
+    return typeof v === 'string' ? { u: v, s: 1, x: 0, y: 0 } : v;
+  }
+  function setSlot(id, val) {
+    if (!id) return;
+    if (val) slots[id] = val; else delete slots[id];
+    saveSlots();
+    subs.forEach(fn => fn());
+  }
+
+  const clampS = s => Math.max(1, Math.min(5, s));
+
+  async function toDataUrl(file, targetW) {
+    const bitmap = await createImageBitmap(file);
+    try {
+      const cap = Math.min(MAX_DIM, Math.max(1, Math.round(targetW * 2)) || MAX_DIM);
+      const scale = Math.min(1, cap / Math.max(bitmap.width, bitmap.height));
+      const w = Math.max(1, Math.round(bitmap.width * scale));
+      const h = Math.max(1, Math.round(bitmap.height * scale));
+      const canvas = document.createElement('canvas');
+      canvas.width = w; canvas.height = h;
+      canvas.getContext('2d').drawImage(bitmap, 0, 0, w, h);
+      return canvas.toDataURL('image/webp', 0.85);
+    } finally { bitmap.close && bitmap.close(); }
+  }
+
+  const stylesheet =
+    ':host{display:inline-block;position:relative;vertical-align:top;' +
+    '  font:13px/1.3 system-ui,-apple-system,sans-serif;color:rgba(0,0,0,.55);width:240px;height:160px}' +
+    '.frame{position:absolute;inset:0;overflow:hidden;background:rgba(0,0,0,.04)}' +
+    '.frame img{position:absolute;max-width:none;transform:translate(-50%,-50%);' +
+    '  -webkit-user-drag:none;user-select:none;touch-action:none}' +
+    '.empty{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;' +
+    '  justify-content:center;gap:6px;text-align:center;padding:12px;box-sizing:border-box;' +
+    '  cursor:pointer;user-select:none}' +
+    '.empty svg{opacity:.45}' +
+    '.empty .cap{max-width:90%;font-weight:500;letter-spacing:.01em}' +
+    '.empty .sub{font-size:11px}' +
+    '.empty .sub u{text-underline-offset:2px;text-decoration-color:rgba(0,0,0,.25)}' +
+    '.empty:hover .sub u{color:rgba(0,0,0,.75);text-decoration-color:currentColor}' +
+    ':host([data-over]) .frame{outline:2px solid #c96442;outline-offset:-2px;' +
+    '  background:rgba(201,100,66,.10)}' +
+    '.ring{position:absolute;inset:0;pointer-events:none;border:1.5px dashed rgba(0,0,0,.25);' +
+    '  transition:border-color .12s}' +
+    ':host([data-over]) .ring{border-color:#c96442}' +
+    ':host([data-filled]) .ring{display:none}' +
+    '.ctl{position:absolute;top:100%;left:50%;transform:translateX(-50%);padding-top:8px;' +
+    '  display:flex;gap:6px;opacity:0;pointer-events:none;transition:opacity .12s;z-index:2;white-space:nowrap}' +
+    ':host([data-filled]:hover) .ctl{opacity:1;pointer-events:auto}' +
+    '.ctl button{appearance:none;border:0;border-radius:6px;padding:5px 10px;cursor:pointer;' +
+    '  background:rgba(0,0,0,.65);color:#fff;font:11px/1 system-ui,-apple-system,sans-serif;' +
+    '  backdrop-filter:blur(6px)}' +
+    '.ctl button:hover{background:rgba(0,0,0,.8)}' +
+    '.err{position:absolute;left:8px;bottom:8px;right:8px;color:#b3261e;font-size:11px;' +
+    '  background:rgba(255,255,255,.85);padding:4px 6px;border-radius:5px;pointer-events:none}';
+
+  const icon =
+    '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" ' +
+    'stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">' +
+    '<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>' +
+    '<path d="m21 15-5-5L5 21"/></svg>';
+
+  class ImageSlot extends HTMLElement {
+    static get observedAttributes() {
+      return ['shape', 'radius', 'mask', 'fit', 'position', 'placeholder', 'src', 'id'];
+    }
+
+    constructor() {
+      super();
+      const root = this.attachShadow({ mode: 'open' });
+      root.innerHTML =
+        '<style>' + stylesheet + '</style>' +
+        '<div class="frame" part="frame">' +
+        '  <img part="image" alt="" draggable="false" style="display:none">' +
+        '  <div class="empty" part="empty">' + icon +
+        '    <div class="cap"></div>' +
+        '    <div class="sub">or <u>browse files</u></div></div>' +
+        '  <div class="ring" part="ring"></div>' +
+        '</div>' +
+        '<div class="ctl"><button data-act="replace">Replace</button>' +
+        '  <button data-act="clear">Remove</button></div>' +
+        '<input type="file" accept="' + ACCEPT.join(',') + '" hidden>';
+      this._frame = root.querySelector('.frame');
+      this._ring  = root.querySelector('.ring');
+      this._img   = root.querySelector('.frame img');
+      this._empty = root.querySelector('.empty');
+      this._cap   = root.querySelector('.cap');
+      this._sub   = root.querySelector('.sub');
+      this._input = root.querySelector('input');
+      this._depth = 0;
+      this._gen   = 0;
+      this._view  = { s: 1, x: 0, y: 0 };
+      this._local = null;
+      this._subFn = () => this._render();
+
+      this._empty.addEventListener('click', () => this._input.click());
+      root.addEventListener('click', e => {
+        const act = e.target && e.target.getAttribute && e.target.getAttribute('data-act');
+        if (act === 'replace') this._input.click();
+        if (act === 'clear') {
+          this._gen++;
+          this._local = null;
+          if (this.id) setSlot(this.id, null); else this._render();
+        }
+      });
+      this._input.addEventListener('change', () => {
+        const f = this._input.files && this._input.files[0];
+        if (f) this._ingest(f);
+        this._input.value = '';
+      });
+      this._img.addEventListener('load', () => this._applyView());
+    }
+
+    connectedCallback() {
+      this.addEventListener('dragenter', this);
+      this.addEventListener('dragover',  this);
+      this.addEventListener('dragleave', this);
+      this.addEventListener('drop',      this);
+      subs.add(this._subFn);
+      this._ro = new ResizeObserver(() => this._render());
+      this._ro.observe(this);
+      this._render();
+    }
+
+    disconnectedCallback() {
+      subs.delete(this._subFn);
+      this.removeEventListener('dragenter', this);
+      this.removeEventListener('dragover',  this);
+      this.removeEventListener('dragleave', this);
+      this.removeEventListener('drop',      this);
+      if (this._ro) { this._ro.disconnect(); this._ro = null; }
+    }
+
+    attributeChangedCallback() { if (this.shadowRoot) this._render(); }
+
+    handleEvent(e) {
+      if (e.type === 'dragenter' || e.type === 'dragover') {
+        e.preventDefault(); e.stopPropagation();
+        if (e.dataTransfer) e.dataTransfer.dropEffect = 'copy';
+        if (e.type === 'dragenter') this._depth++;
+        this.setAttribute('data-over', '');
+      } else if (e.type === 'dragleave') {
+        if (--this._depth <= 0) { this._depth = 0; this.removeAttribute('data-over'); }
+      } else if (e.type === 'drop') {
+        e.preventDefault(); e.stopPropagation();
+        this._depth = 0; this.removeAttribute('data-over');
+        const f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+        if (f) this._ingest(f);
+      }
+    }
+
+    async _ingest(file) {
+      if (!file || ACCEPT.indexOf(file.type) < 0) return;
+      const gen = ++this._gen;
+      try {
+        const w = this.clientWidth || this.offsetWidth || MAX_DIM;
+        const url = await toDataUrl(file, w);
+        if (gen !== this._gen) return;
+        const val = { u: url, s: 1, x: 0, y: 0 };
+        if (this.id) setSlot(this.id, val);
+        else { this._local = val; this._render(); }
+      } catch(err) {
+        console.warn('<image-slot> ingest failed:', err);
+      }
+    }
+
+    _geom() {
+      const iw = this._img.naturalWidth, ih = this._img.naturalHeight;
+      const fw = this.clientWidth, fh = this.clientHeight;
+      if (!iw || !ih || !fw || !fh) return null;
+      return { iw, ih, fw, fh, base: Math.max(fw / iw, fh / ih) };
+    }
+
+    _applyView() {
+      const g = this._geom();
+      if (!g) {
+        this._img.style.width = '100%'; this._img.style.height = '100%';
+        this._img.style.left = '50%'; this._img.style.top = '50%';
+        this._img.style.objectFit = 'cover';
+        return;
+      }
+      const k = g.base * this._view.s;
+      this._img.style.width  = (g.iw * k / g.fw * 100) + '%';
+      this._img.style.height = (g.ih * k / g.fh * 100) + '%';
+      this._img.style.left   = (50 + this._view.x) + '%';
+      this._img.style.top    = (50 + this._view.y) + '%';
+      this._img.style.objectFit = '';
+    }
+
+    _render() {
+      const mask  = this.getAttribute('mask');
+      const shape = (this.getAttribute('shape') || 'rounded').toLowerCase();
+      let radius = '';
+      if (shape === 'circle') radius = '50%';
+      else if (shape === 'pill') radius = '9999px';
+      else if (shape === 'rounded') {
+        const n = parseFloat(this.getAttribute('radius'));
+        radius = (Number.isFinite(n) ? n : 12) + 'px';
+      }
+      this._frame.style.borderRadius = mask ? '' : radius;
+      this._frame.style.clipPath     = mask || '';
+      this._ring.style.borderRadius  = mask ? '' : radius;
+      this._ring.style.display       = mask ? 'none' : '';
+
+      let stored = this.id ? getSlot(this.id) : this._local;
+      if (stored && stored.u && !/^data:image\//i.test(stored.u)) stored = null;
+      const srcAttr = this.getAttribute('src') || '';
+      this._view = {
+        s: stored && Number.isFinite(stored.s) ? clampS(stored.s) : 1,
+        x: stored && Number.isFinite(stored.x) ? stored.x : 0,
+        y: stored && Number.isFinite(stored.y) ? stored.y : 0,
+      };
+      this._cap.textContent = this.getAttribute('placeholder') || 'Drop an image';
+      const url = (stored && stored.u) || srcAttr;
+      if (url) {
+        if (this._img.getAttribute('src') !== url) this._img.src = url;
+        this._img.style.display  = 'block';
+        this._empty.style.display = 'none';
+        this.setAttribute('data-filled', '');
+        this._applyView();
+      } else {
+        this._img.style.display   = 'none';
+        this._img.removeAttribute('src');
+        this._empty.style.display = 'flex';
+        this.removeAttribute('data-filled');
+      }
+    }
+  }
+
+  if (!customElements.get('image-slot')) {
+    customElements.define('image-slot', ImageSlot);
+  }
+})();
+
+// Online confirmation form — persist to localStorage
+(function() {
+  const form  = document.getElementById('confirmForm');
+  const okMsg = document.getElementById('okMsg');
+  const STORE = 'attersee_confirm';
+  try {
+    const saved = JSON.parse(localStorage.getItem(STORE) || 'null');
+    if (saved) {
+      form.student.value = saved.student || '';
+      form.klasse.value  = saved.klasse  || '';
+      form.parent.value  = saved.parent  || '';
+      form.station.value = saved.station || '';
+      if (saved.submitted) okMsg.classList.add('show');
+    }
+  } catch(e) {}
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const data = {
+      student:   form.student.value,
+      klasse:    form.klasse.value,
+      parent:    form.parent.value,
+      station:   form.station.value,
+      c1:        document.getElementById('c1').checked,
+      c2:        document.getElementById('c2').checked,
+      c3:        document.getElementById('c3').checked,
+      submitted: true,
+      ts:        Date.now()
+    };
+    localStorage.setItem(STORE, JSON.stringify(data));
+    okMsg.classList.add('show');
+    okMsg.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+
+  ['student','klasse','parent','station'].forEach(n => {
+    form[n].addEventListener('input', () => {
+      const cur = JSON.parse(localStorage.getItem(STORE) || '{}');
+      cur[n] = form[n].value;
+      localStorage.setItem(STORE, JSON.stringify(cur));
+    });
+  });
+})();
+</script>
+</body>
+</html>
